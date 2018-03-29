@@ -1,0 +1,14 @@
+1. webstorm不支持stylu的解决办法
+<style scoped lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+
+2. 编译找不到stylu的方法
+  . 删除node_modules 然后重新安装npm install
+  . npm install stylus --save-dev
+    npm install stylus-loader --save-dev
+    执行后 就能正常找到
+
+3. 在vue文件中批量修改文件导入路径 --- 配置别名
+  通过修改webpack.base.conf.js中的resolve,就能统一修改文件导入路径
+
+4. npm install -g 在mac的安装路径是在/usr/local/lib/node_modules/下，/usr/local/bin下的可执行文件只是软链接而已
+
