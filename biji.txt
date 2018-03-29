@@ -9,6 +9,12 @@
 
 3. 在vue文件中批量修改文件导入路径 --- 配置别名
   通过修改webpack.base.conf.js中的resolve,就能统一修改文件导入路径
+  在style要应用的时候 在前面加上~ 表明使用定义的别名
 
 4. npm install -g 在mac的安装路径是在/usr/local/lib/node_modules/下，/usr/local/bin下的可执行文件只是软链接而已
 
+5. fastclick解决移动端300ms延迟的问题
+
+6. 设置图片样式的时候记得在除了width height外，还要设置background-size
+
+7.
