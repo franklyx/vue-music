@@ -17,4 +17,75 @@
 
 6. 设置图片样式的时候记得在除了width height外，还要设置background-size
 
-7.
+7. JSON来传递数据，靠JSONP来跨域
+   . 什么是JSONP
+      json是数据交换格式，JSONP是星系传递双方约定的方法
+   . 实现原理
+      Ajax直接请求普通文件存在跨域无法访问权限的问题，无论是静态页面，动态网页，web服务，只要是跨域请求，一律不准
+      web上调用js文件时候不受到跨域的影响(带有src属性的标签都具有跨域的能力 script，img, iframe)
+   . 要点
+      允许用户传递一个callback参数给服务端，然后服务端返回数据的时候会将callback参数作为函数名来包裹JSON数据，这样客服端就可以随意定制自己的函数来处理返回数据
+
+8. 跨域请求解决办法
+  . 现在一般使用CORS请求
+  . jsonp 以及CORS请求
+      后台系统添加参数
+         res.header("Access-Control-Allow-Origin", "*");
+         res.header("Access-Control-Allow-Headers", "X-Requested-With");
+         res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+9. promise
+  所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+    const promise = new Promise((resolve, reject) => {
+      // ... some code
+
+      if (/* 异步操作成功 */){
+        resolve(value);
+      } else {
+        reject(error);
+      }
+    });
+10. Object.assign用于对象的合并
+
+
+11. ref 被用来给DOM元素或子组件注册引用信息。引用信息会根据父组件的 $refs 对象进行注册。如果在普通的DOM元素上使用，引用信息就是元素; 如果用在子组件上，引用信息就是组件实例
+  注意：只要想要在Vue中直接操作DOM元素，就必须用ref属性进行注册
+
+12. 前端修改请求header的方法
+  . 通过发起http本地接口请求，修改headers
+  . 然后在发送一遍修改的http请求
+
+13. axios传递参数的时候注意是params不是param
+
+14. flex布局
+  . 左边固定 右边自适应
+  . 通过设置align-items： center 保证左右元素保持居中
+  . 通过设置flex-direction 设置成纵向flex justify-content: center 设置纵向居中
+  .当你设置box-sizing:border-box以后，这就能达到你想要的目的。例如，上面我们想要一个宽度为200px的盒子，那么我们直接设置宽度为200px。
+
+15. 局部滚动
+
+16. this.scroll && this.scroll.enable()
+    当scroll存在的时候调用 this.scroll.enable方法
+
+17. vue组件中的执行顺序
+  Props -》 Methods -》 Data -》Computed -》 Watch
+
+18.
+  activated //keek-alive组件被激活时调用，则在keep-alive包裹的嵌套的子组件中触发
+
+19. 滚动实现时候可能由于请求数据响应事件问题，出现图片不能拉倒最底下的问题
+    . 通过监听图片的@load事件，重新计算高度
+
+20. 在使用better-scroll时候
+  记得在初始化之前要进行要设置延迟时间，不然高度计算会有问题
+    setTimeout(() => {
+      this._initScroll()
+    }, 20)
+
+21. 图片懒加载问题
+  vue-lazyload解决
+  查看源码
+
+22. 解决下拉框高度问题 #TODO 待解决
+
+23. better-scroll 通过设置class="needsclick"就不会拦截浏览器的点击事件
