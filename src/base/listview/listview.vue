@@ -6,7 +6,7 @@
       <li v-for="group in data" class="list-group" :key="group.id" ref="listGroup">
         <h2 class=" list-group-title">{{group.title}}</h2>
         <ul>
-          <li v-for="item in group.item" class="list-group-item" :key="item.id">
+          <li @click="selectItem(item)" v-for="item in group.item" class="list-group-item" :key="item.id">
             <img class="avatar" v-lazy="item.avatar">
             <span class="name">{{item.name}}</span>
           </li>
@@ -76,6 +76,9 @@ export default {
     }
   },
   methods: {
+    selectItem (item) {
+      this.$emit('select', item)
+    },
     onShortcutTouchStart (e) {
       let anchorIndex = getData(e.target, 'index')
       let firstTouch = e.touches[0]
@@ -136,6 +139,7 @@ export default {
         let height1 = listHeight[i]
         let height2 = listHeight[i + 1]
         if ((-newY) >= height1 && (-newY) < height2) {
+          console.log(newY)
           this.currentIndex = i
           this.diff = height2 + newY
           return
@@ -147,6 +151,7 @@ export default {
     diff (newVal) {
       let fixedTop = (newVal > 0 && newVal < TITLE_HEIGHT) ? newVal - TITLE_HEIGHT : 0
       if (this.fixedTop === fixedTop) {
+        console.log(this.fixedTop)
         return
       }
       this.fixedTop = fixedTop

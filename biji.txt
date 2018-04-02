@@ -109,4 +109,36 @@
 
 26. 不需要监听的最好不要放在data中
     利用created 创建一个对象
-27.
+
+27. vuex 使用场景
+  . 解决多个组件的状态共享
+  . 路由间的数据传递
+
+28. 常见vuex 目录结构
+  . store 文件夹
+  . state.js
+  . mutation-type.js
+  . mutations.js
+  . getters.js
+  . actives.js
+  . index.js
+
+29 .[types.SET_SINGER](state, singer) 类似python getattr
+
+30 jsonp插件在使用的时候不需要显示的指明回调函数名称，只需要指定函数传递的参数名称
+
+31. Vue.$router 不会返回函数控制权
+
+32. let {musicData} = item 面向对象赋值 等于 let musicData = item.musicData
+
+33.  背景图css 通过padding 撑开image
+        position: relative
+        width: 100%
+        height: 0
+        padding-top: 70%
+        transform-origin: top
+        background-size: cover
+
+34. 在js中的样式修改不能自动添加浏览器支持前, 利用浏览器的能力检测特性，解决
+
+35. this.$router.back()
