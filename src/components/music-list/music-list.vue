@@ -18,7 +18,7 @@
             :listenScroll="listenScroll" :probeType="probeType"
             @scroll="scroll">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list @select="selectSong" :songs="songs"></song-list>
       </div>
       <div class="loading-container" v-show="!songs.length">
         <loading></loading>
@@ -32,6 +32,7 @@ import Scroll from 'base/scroll/scroll'
 import Loading from 'base/loading/loading'
 import SongList from 'base/song-list/song-list'
 import {prefixStyle} from 'common/js/dom'
+import {mapActions} from 'vuex'
 
 const RESERVED_HEIGHT = 40
 const transform = prefixStyle('transform')
@@ -84,8 +85,18 @@ export default {
     },
     back () {
       this.$router.back()
-    }
-
+    },
+    selectSong  (item, index) {
+    // 点击时候设置currentIndex playlist sequenceList playstate fullscroll
+    //  将这些操作都封装到actions中
+      this.selectPlay({
+        list: this.songs,
+        index: index
+      })
+    },
+    ...mapActions([
+      'selectPlay'
+    ])
   },
   watch: {
     scrollY (newY) {

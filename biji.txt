@@ -142,3 +142,5 @@
 34. 在js中的样式修改不能自动添加浏览器支持前, 利用浏览器的能力检测特性，解决
 
 35. this.$router.back()
+
+36. vue JavaScript 钩子 利用插件配合vue钩子完成js编程css动画
