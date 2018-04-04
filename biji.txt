@@ -144,3 +144,27 @@
 35. this.$router.back()
 
 36. vue JavaScript 钩子 利用插件配合vue钩子完成js编程css动画
+
+37 利用html5的audio方法实现播放
+
+38 $nextTick 添加延时 在下次 DOM 更新循环结束之后执行延迟回调。
+
+39. @click.stop阻止冒泡
+
+40. 当元素设置了  absolute  后，默认就不是100%的宽度了，而是内容多宽就是多宽
+如果希望absolute 以后的元素依然和父容器一样是的100% 宽度
+有两个方法：
+  1.直接设置 width:100%
+  2.设置left:0px   right:0px;
+
+41
+  absolute > relative > absolute 能够继承到relative的定位设置
+
+42
+  e为元素节点
+    e.target.currentTime
+  等价于 this.$refs.audio.currentTime
+
+
+43 理解event对象
+  offset, client, page, screen
