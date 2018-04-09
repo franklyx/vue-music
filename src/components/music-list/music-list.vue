@@ -173,9 +173,10 @@ export default {
       left: 10%
       z-index: 40
       width: 80%
+      no-wrap()
       text-align: center
       line-height: 40px
-      font-size: $font-size-large
+      font-size: $font-size-medium-x
       color: $color-text
     .bg-image
       position: relative

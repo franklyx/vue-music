@@ -184,3 +184,7 @@
 
 49. activated 在keepalive的时候触发
     mounted 在编译好的html挂载到页面完成后执行的事件钩子
+
+50. mapGetters -> computed
+    mapMutations -> methods
+    mapActions -> methods
