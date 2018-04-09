@@ -48,7 +48,10 @@ import { ERR_OK } from 'api/config'
 import Slider from 'base/slide/slide'
 import Scroll from 'base/scroll/scroll'
 import Loading from 'base/loading/loading'
+import {playlistMixin} from 'common/js/mixin'
+
 export default {
+  mixins: [playlistMixin],
   data () {
     return {
       recommends: [],
@@ -75,7 +78,6 @@ export default {
     _getDiscList () {
       getDiscList().then((res) => {
         if (res.code === ERR_OK) {
-          console.log(res.data.list.length)
           this.discList = res.data.list
         }
       })
@@ -86,6 +88,11 @@ export default {
         // 调用到组件scroll中的refresh方法
         this.$refs.scroll.refresh()
       }
+    },
+    handlePlayList (playList) {
+      const bottom = playList.length > 0 ? '60px' : ''
+      this.$refs.recommend.style.bottom = bottom
+      this.$refs.scroll.refresh()
     }
   }
 }

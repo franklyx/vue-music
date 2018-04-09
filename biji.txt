@@ -168,3 +168,19 @@
 
 43 理解event对象
   offset, client, page, screen
+
+44. <circle> 标签可用来创建一个圆。
+
+45. 圆圈动画利用svg circle 的
+    stroke-width 设置圆圈宽度
+    stroke-dasharray 设置svg长度  stroke-dashoffset dash模式到路径开始的距离。
+    注意圆圈的起点在x轴正方向
+
+46. getBoundingClientRect() 来获取页面元素的位置
+
+47. 查看lyric-parser源码
+
+48. 调用其他组件的refs的时候 不能直接获取 要使用 this.$refs.lyricList.$el.style
+
+49. activated 在keepalive的时候触发
+    mounted 在编译好的html挂载到页面完成后执行的事件钩子

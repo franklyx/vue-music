@@ -93,6 +93,9 @@ export default {
       let anchorIndex = parseInt(this.touch.anchorIndex) + delta
       this._scrollTo(anchorIndex)
     },
+    refresh() {
+      this.$refs.listview.refresh()
+    },
     scroll (pos) {
       this.scrollY = pos.y
     },
@@ -139,7 +142,6 @@ export default {
         let height1 = listHeight[i]
         let height2 = listHeight[i + 1]
         if ((-newY) >= height1 && (-newY) < height2) {
-          console.log(newY)
           this.currentIndex = i
           this.diff = height2 + newY
           return
@@ -151,7 +153,6 @@ export default {
     diff (newVal) {
       let fixedTop = (newVal > 0 && newVal < TITLE_HEIGHT) ? newVal - TITLE_HEIGHT : 0
       if (this.fixedTop === fixedTop) {
-        console.log(this.fixedTop)
         return
       }
       this.fixedTop = fixedTop

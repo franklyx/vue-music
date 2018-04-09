@@ -39,7 +39,6 @@ export default {
       this._setSlideWidth()
       this._initDots()
       this._initSlide()
-      console.log(this.autoPlay)
       if (this.autoPlay) {
         this._play()
       }
