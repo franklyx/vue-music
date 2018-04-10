@@ -149,7 +149,7 @@
 
 38 $nextTick 添加延时 在下次 DOM 更新循环结束之后执行延迟回调。
 
-39. @click.stop阻止冒泡
+39. @click.prevent阻止冒泡
 
 40. 当元素设置了  absolute  后，默认就不是100%的宽度了，而是内容多宽就是多宽
 如果希望absolute 以后的元素依然和父容器一样是的100% 宽度
@@ -188,3 +188,5 @@
 50. mapGetters -> computed
     mapMutations -> methods
     mapActions -> methods
+
+51. mixins的含义就是讲一堆代码 拼接到引用了的vue文件中
