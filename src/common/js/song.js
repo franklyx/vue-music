@@ -14,7 +14,7 @@ export default class Song {
     this.url = url
   }
 
-  getLyric () {
+  getLyric() {
     if (this.lyric) {
       return Promise.resolve(this.lyric)
     }
@@ -45,6 +45,7 @@ export function createSong(musicData) {
   })
 }
 
+// 将singer数组转成字符串
 function filterSinger(singer) {
   let ret = []
   if (!singer) {

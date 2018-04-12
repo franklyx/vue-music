@@ -12,3 +12,17 @@ export function shuffle(arr) {
   }
   return _arr
 }
+
+export function debounce(func, delay) {
+  let timer
+
+  return function (...args) {
+    // 所有时间间隔小于delay的事件，都不会触发func()
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args)
+    }, delay)
+  }
+}

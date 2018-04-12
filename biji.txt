@@ -180,7 +180,7 @@
 
 47. 查看lyric-parser源码
 
-48. 调用其他组件的refs的时候 不能直接获取 要使用 this.$refs.lyricList.$el.style
+48. 调用其他组件的refs的时候 当节点是一个自组件时，修改样式， 要使用 this.$refs.lyricList.$el.style ，但是能够直接使用获取自组件定义的方法
 
 49. activated 在keepalive的时候触发
     mounted 在编译好的html挂载到页面完成后执行的事件钩子
@@ -190,3 +190,28 @@
     mapActions -> methods
 
 51. mixins的含义就是讲一堆代码 拼接到引用了的vue文件中
+
+52. 在写代码的时候 分离基础组件和业务组件的依据是： 是否和业务相关
+
+53. es6 扩展运算符 三个点（...）
+  ret.push({...data.zhida , ...{type: TYPE_SINGER}})
+  将两个对象合并成一个对象
+
+54. _.debounce 是一个通过 Lodash 限制操作频率的函数。
+  <input v-on:input="debounceInput">
+
+  methods: {
+    debounceInput: _.debounce(function (e) {
+      this.filterKey = e.target.value;
+    }, 500)
+  }
+
+55. splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目。
+    注释：该方法会改变原始数组。
+    arrayObject.splice(index,howmany,item1,.....,itemX)
+
+56. 当出现直接修改state中的值报错是 利用slice 获取副本在修改就不会报错
+
+57. 注意移动端在输入的input的时候，调用键盘后要及时使用input的blur()隐藏键盘
+
+58. 以及watch控制watch频率达到节流的目的

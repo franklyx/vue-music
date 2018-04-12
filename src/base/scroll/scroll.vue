@@ -6,6 +6,7 @@
 
 <script type="text/ecmascript-6">
 import BScroll from 'better-scroll'
+
 export default {
   props: {
     // 事件监听类型- 快速滑动，缓慢滑动
@@ -24,6 +25,16 @@ export default {
       default: null
     },
     listenScroll: {
+      type: Boolean,
+      default: false
+    },
+    // 下拉刷新
+    pullup: {
+      type: Boolean,
+      default: false
+    },
+    // 是否监听滚动开始事件
+    beforeScroll: {
       type: Boolean,
       default: false
     }
@@ -49,6 +60,18 @@ export default {
         // pos是对象，包含x,y的属性
         this.scroll.on('scroll', (pos) => {
           me.$emit('scroll', pos)
+        })
+      }
+      if (this.pullup) {
+        this.scroll.on('scrollEnd', () => {
+          if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+            this.$emit('scrollToEnd')
+          }
+        })
+      }
+      if (this.beforeScroll) {
+        this.scroll.on('beforeScrollStart', () => {
+          this.$emit('beforeScroll')
         })
       }
     },
