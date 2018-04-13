@@ -215,3 +215,12 @@
 57. 注意移动端在输入的input的时候，调用键盘后要及时使用input的blur()隐藏键盘
 
 58. 以及watch控制watch频率达到节流的目的
+
+59. concat 合并数组
+    Object.assign用于对象的合并
+
+60. pop push 从数组后面添加，删除
+    unshift shift 把数组的前面删除, 添加
+    都会改变原数组
+
+61 list findIndex((item) => {return item === str})函数返e的index

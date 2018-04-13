@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     _getDetail () {
+      // 确实存在id不存在的情况
       if (!this.singer.id) {
         this.$router.push('/singer')
         return

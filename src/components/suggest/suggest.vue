@@ -103,7 +103,6 @@ export default {
       }
     },
     selectItem (item) {
-      console.log(item)
       if (item.type === TYPE_SINGER) {
         const singer = new Singer({
           id: item.singermid,
@@ -116,6 +115,8 @@ export default {
       } else {
         this.insertSong(item)
       }
+      // 派发一个搜索事件
+      this.$emit('select')
     },
     listScroll () {
       this.$emit('listScroll')

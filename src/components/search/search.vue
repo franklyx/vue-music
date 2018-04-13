@@ -3,41 +3,74 @@
     <div class="search-box-wrapper">
       <search-box ref="searchBox" @query="onQueryChange"></search-box>
     </div>
-    <div class="shortcut-wrapper" v-show="!query">
-      <div class="shortcut">
-        <div class="hot-key">
-          <h1 class="title">热门搜索</h1>
-          <ul>
-            <li class="item" v-for="item in hotKey" :key="item.id"
-                @click="addQuery(item.k)">
-              <span>{{item.k}}</span>
-            </li>
-          </ul>
+    <div class="shortcut-wrapper" v-show="!query" ref="shortcutWrapper">
+      <scroll class="shortcut" ref="shortcut" :data="shortcut">
+        <div>
+          <div class="hot-key">
+            <h1 class="title">热门搜索</h1>
+            <ul>
+              <li class="item" v-for="item in hotKey" :key="item.id"
+                  @click="addQuery(item.k)">
+                <span>{{item.k}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="search-history" v-show="searchHistory.length">
+          <h1 class="title">
+            <span class="text">搜索历史</span>
+            <span class="clear" @click="showConfirm">
+            <i class="icon-clear">
+            </i>
+          </span>
+          </h1>
+          <search-list :searches="searchHistory" @select="addQuery" @delete="delQuery">
+          </search-list>
         </div>
-      </div>
+        </div>
+      </scroll>
     </div>
     <div class="search-result" v-show="query" ref="searchWrap">
-      <suggest :query="query" @listScroll="blurInput" ref="searchRes"></suggest>
+      <suggest :query="query" @listScroll="blurInput"
+               ref="searchRes" @select="saveSearch"
+      ></suggest>
     </div>
+    <confirm ref="confirm" text="是否清楚所有搜索记录" confirmBtnText="清空"
+              @confirm="clearSearchHistory"
+    ></confirm>
     <router-view></router-view>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import Confirm from 'base/confirm/confirm'
 import SearchBox from 'base/search-box/search-box'
+import SearchList from 'base/search-list/search-list'
 import Suggest from 'components/suggest/suggest'
 import {getHotKey} from 'api/search'
 import {ERR_OK} from 'api/config'
 import {playlistMixin} from 'common/js/mixin'
+import Scroll from 'base/scroll/scroll'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   mixins: [playlistMixin],
   created () {
     this._getHotKey()
   },
+  computed: {
+    shortcut () {
+      return this.hotKey.concat(this.searchHistory)
+    },
+    ...mapGetters([
+      'searchHistory'
+    ])
+  },
   components: {
     SearchBox,
-    Suggest
+    Suggest,
+    SearchList,
+    Confirm,
+    Scroll
   },
   data () {
     return {
@@ -45,15 +78,41 @@ export default {
       query: ''
     }
   },
+  watch: {
+    query(newQuery) {
+      if (!newQuery) {
+        setTimeout(() => {
+          this.$refs.shortcut.refresh()
+        }, 20)
+      }
+    }
+  },
   methods: {
     addQuery (query) {
       this.$refs.searchBox.setQuery(query)
+    },
+    delQuery(query) {
+      this.deleteSearchHistory(query)
+    },
+    showConfirm () {
+      this.$refs.confirm.show()
+      // this.clearSearchHistory()
     },
     onQueryChange (query) {
       this.query = query
     },
     blurInput () {
       this.$refs.searchBox.blur()
+    },
+    handlePlayList (playList) {
+      const bottom = playList.length > 0 ? '60px' : ''
+      this.$refs.searchWrap.style.bottom = bottom
+      this.$refs.searchRes.refresh()
+      this.$refs.shortcutWrapper.style.bottom = bottom
+      this.$refs.shortcut.refresh()
+    },
+    saveSearch () {
+      this.saveSearchHistory(this.query)
     },
     _getHotKey () {
       getHotKey().then((res) => {
@@ -62,11 +121,11 @@ export default {
         }
       })
     },
-    handlePlayList (playList) {
-      const bottom = playList.length > 0 ? '60px' : ''
-      this.$refs.searchWrap.style.bottom = bottom
-      this.$refs.searchRes.refresh()
-    }
+    ...mapActions([
+      'saveSearchHistory',
+      'deleteSearchHistory',
+      'clearSearchHistory'
+    ])
   }
 }
 </script>
@@ -99,6 +158,22 @@ export default {
             background: $color-highlight-background
             font-size: $font-size-medium
             color: $color-text-d
+        .search-history
+          position: relative
+          margin: 0 20px
+          .title
+            display: flex
+            align-items: center
+            height: 40px
+            font-size: $font-size-medium
+            color: $color-text-d
+            .text
+              flex: 1
+            .clear
+              extend-click()
+              .icon-clear
+                font-size: $font-size-medium
+                color: $color-text-d
     .search-result
       position: absolute
       width: 100%
