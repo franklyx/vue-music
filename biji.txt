@@ -224,3 +224,5 @@
     都会改变原数组
 
 61 list findIndex((item) => {return item === str})函数返e的index
+
+62 <transition-group name="list" tag="ul"> 给每一个li添加动画
