@@ -87,8 +87,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           }).catch((e) => {
             console.log(e)
           })
-        }),
-        app.get("/api/disc", (req, res) => {
+        })
+      app.get("/api/disc", (req, res) => {
           var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
 
           axios.get(url, {
