@@ -4,7 +4,7 @@
       <search-box ref="searchBox" @query="onQueryChange"></search-box>
     </div>
     <div class="shortcut-wrapper" v-show="!query" ref="shortcutWrapper">
-      <scroll class="shortcut" ref="shortcut" :data="shortcut">
+      <scroll class="shortcut" ref="shortcut" :data="shortcut" :refreshDelay="refreshDelay">
         <div>
           <div class="hot-key">
             <h1 class="title">热门搜索</h1>
@@ -48,22 +48,19 @@ import SearchList from 'base/search-list/search-list'
 import Suggest from 'components/suggest/suggest'
 import {getHotKey} from 'api/search'
 import {ERR_OK} from 'api/config'
-import {playlistMixin} from 'common/js/mixin'
+import {playlistMixin, searchMixin} from 'common/js/mixin'
 import Scroll from 'base/scroll/scroll'
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
-  mixins: [playlistMixin],
+  mixins: [playlistMixin, searchMixin],
   created () {
     this._getHotKey()
   },
   computed: {
     shortcut () {
       return this.hotKey.concat(this.searchHistory)
-    },
-    ...mapGetters([
-      'searchHistory'
-    ])
+    }
   },
   components: {
     SearchBox,
@@ -74,8 +71,7 @@ export default {
   },
   data () {
     return {
-      hotKey: [],
-      query: ''
+      hotKey: []
     }
   },
   watch: {
@@ -88,9 +84,6 @@ export default {
     }
   },
   methods: {
-    addQuery (query) {
-      this.$refs.searchBox.setQuery(query)
-    },
     delQuery(query) {
       this.deleteSearchHistory(query)
     },
@@ -98,21 +91,12 @@ export default {
       this.$refs.confirm.show()
       // this.clearSearchHistory()
     },
-    onQueryChange (query) {
-      this.query = query
-    },
-    blurInput () {
-      this.$refs.searchBox.blur()
-    },
     handlePlayList (playList) {
       const bottom = playList.length > 0 ? '60px' : ''
       this.$refs.searchWrap.style.bottom = bottom
       this.$refs.searchRes.refresh()
       this.$refs.shortcutWrapper.style.bottom = bottom
       this.$refs.shortcut.refresh()
-    },
-    saveSearch () {
-      this.saveSearchHistory(this.query)
     },
     _getHotKey () {
       getHotKey().then((res) => {
@@ -122,8 +106,6 @@ export default {
       })
     },
     ...mapActions([
-      'saveSearchHistory',
-      'deleteSearchHistory',
       'clearSearchHistory'
     ])
   }

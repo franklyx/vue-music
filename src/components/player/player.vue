@@ -103,7 +103,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 import animations from 'create-keyframe-animation'
 import {prefixStyle} from 'common/js/dom'
 import ProgressBar from 'base/progress-bar/progress-bar'
@@ -251,6 +251,8 @@ export default {
     },
     ready () {
       this.songReady = true
+      //  写入数据到最近播放
+      this.savePlayHistory(this.currentSong)
     },
     error () {
       // 当链接不存在是保证正常使用
@@ -392,7 +394,10 @@ export default {
     ...mapMutations({
       setFullScreen: 'SET_FULL_SCREEN',
       setPlayingState: 'SET_PLAYING_STATE'
-    })
+    }),
+    ...mapActions([
+      'savePlayHistory'
+    ])
   },
   watch: {
     currentSong (newSong, oldSong) {
