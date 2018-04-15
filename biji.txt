@@ -9,6 +9,220 @@
 
 3. 在vue文件中批量修改文件导入路径 --- 配置别名
   通过修改webpack.base.conf.js中的resolve,就能统一修改文件导入路径
+  在style要应用的时候 在前面加上~ 表明使用定义的别名
 
 4. npm install -g 在mac的安装路径是在/usr/local/lib/node_modules/下，/usr/local/bin下的可执行文件只是软链接而已
 
+5. fastclick解决移动端300ms延迟的问题
+
+6. 设置图片样式的时候记得在除了width height外，还要设置background-size
+
+7. JSON来传递数据，靠JSONP来跨域
+   . 什么是JSONP
+      json是数据交换格式，JSONP是星系传递双方约定的方法
+   . 实现原理
+      Ajax直接请求普通文件存在跨域无法访问权限的问题，无论是静态页面，动态网页，web服务，只要是跨域请求，一律不准
+      web上调用js文件时候不受到跨域的影响(带有src属性的标签都具有跨域的能力 script，img, iframe)
+   . 要点
+      允许用户传递一个callback参数给服务端，然后服务端返回数据的时候会将callback参数作为函数名来包裹JSON数据，这样客服端就可以随意定制自己的函数来处理返回数据
+
+8. 跨域请求解决办法
+  . 现在一般使用CORS请求
+  . jsonp 以及CORS请求
+      后台系统添加参数
+         res.header("Access-Control-Allow-Origin", "*");
+         res.header("Access-Control-Allow-Headers", "X-Requested-With");
+         res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+9. promise
+  所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+    const promise = new Promise((resolve, reject) => {
+      // ... some code
+
+      if (/* 异步操作成功 */){
+        resolve(value);
+      } else {
+        reject(error);
+      }
+    });
+10. Object.assign用于对象的合并
+
+
+11. ref 被用来给DOM元素或子组件注册引用信息。引用信息会根据父组件的 $refs 对象进行注册。如果在普通的DOM元素上使用，引用信息就是元素; 如果用在子组件上，引用信息就是组件实例
+  注意：只要想要在Vue中直接操作DOM元素，就必须用ref属性进行注册
+
+12. 前端修改请求header的方法
+  . 通过发起http本地接口请求，修改headers
+  . 然后在发送一遍修改的http请求
+
+13. axios传递参数的时候注意是params不是param
+
+14. flex布局
+  . 左边固定 右边自适应
+  . 通过设置align-items： center 保证左右元素保持居中
+  . 通过设置flex-direction 设置成纵向flex justify-content: center 设置纵向居中
+  .当你设置box-sizing:border-box以后，这就能达到你想要的目的。例如，上面我们想要一个宽度为200px的盒子，那么我们直接设置宽度为200px。
+
+15. 局部滚动
+
+16. this.scroll && this.scroll.enable()
+    当scroll存在的时候调用 this.scroll.enable方法
+
+17. vue组件中的执行顺序
+  Props -》 Methods -》 Data -》Computed -》 Watch
+
+18.
+  activated //keek-alive组件被激活时调用，则在keep-alive包裹的嵌套的子组件中触发
+
+19. 滚动实现时候可能由于请求数据响应事件问题，出现图片不能拉倒最底下的问题
+    . 通过监听图片的@load事件，重新计算高度
+    解决下拉框高度问题 #TODO 待解决
+
+20. 在使用better-scroll时候
+  记得在初始化之前要进行要设置延迟时间，不然高度计算会有问题
+    setTimeout(() => {
+      this._initScroll()
+    }, 20)
+
+21. 图片懒加载问题
+  vue-lazyload解决
+  查看源码
+
+22. better-scroll 通过设置class="needsclick"就不会拦截浏览器的点击事件
+
+23. ES6定义类
+  export default class Singer {
+    constructor({id, name}) {
+      this.id = id
+      this.name = name
+      this.avator = `http://y.gtimg.cn/music/photo_new/T001R300x300M000${this.id}.jpg?max_age=2592000`
+    }
+  }
+
+
+24. 数据处理顺序
+  1. 先用对象聚合
+  2. 便利转成列表
+  3. 列表进行排序
+
+25. vue @touchstart = func()  监听touch事件
+    vue @touchmove onShortcutTouchMove.stop.prevent 监听拖动事件 并且阻止冒泡
+
+26. 不需要监听的最好不要放在data中
+    利用created 创建一个对象
+
+27. vuex 使用场景
+  . 解决多个组件的状态共享
+  . 路由间的数据传递
+
+28. 常见vuex 目录结构
+  . store 文件夹
+  . state.js
+  . mutation-type.js
+  . mutations.js
+  . getters.js
+  . actives.js
+  . index.js
+
+29 .[types.SET_SINGER](state, singer) 类似python getattr
+
+30 jsonp插件在使用的时候不需要显示的指明回调函数名称，只需要指定函数传递的参数名称
+
+31. Vue.$router 不会返回函数控制权
+
+32. let {musicData} = item 面向对象赋值 等于 let musicData = item.musicData
+
+33.  背景图css 通过padding 撑开image
+        position: relative
+        width: 100%
+        height: 0
+        padding-top: 70%
+        transform-origin: top
+        background-size: cover
+
+34. 在js中的样式修改不能自动添加浏览器支持前, 利用浏览器的能力检测特性，解决
+
+35. this.$router.back()
+
+36. vue JavaScript 钩子 利用插件配合vue钩子完成js编程css动画
+
+37 利用html5的audio方法实现播放
+
+38 $nextTick 添加延时 在下次 DOM 更新循环结束之后执行延迟回调。
+
+39. @click.prevent阻止冒泡
+
+40. 当元素设置了  absolute  后，默认就不是100%的宽度了，而是内容多宽就是多宽
+如果希望absolute 以后的元素依然和父容器一样是的100% 宽度
+有两个方法：
+  1.直接设置 width:100%
+  2.设置left:0px   right:0px;
+
+41
+  absolute > relative > absolute 能够继承到relative的定位设置
+
+42
+  e为元素节点
+    e.target.currentTime
+  等价于 this.$refs.audio.currentTime
+
+
+43 理解event对象
+  offset, client, page, screen
+
+44. <circle> 标签可用来创建一个圆。
+
+45. 圆圈动画利用svg circle 的
+    stroke-width 设置圆圈宽度
+    stroke-dasharray 设置svg长度  stroke-dashoffset dash模式到路径开始的距离。
+    注意圆圈的起点在x轴正方向
+
+46. getBoundingClientRect() 来获取页面元素的位置
+
+47. 查看lyric-parser源码
+
+48. 调用其他组件的refs的时候 当节点是一个自组件时，修改样式， 要使用 this.$refs.lyricList.$el.style ，但是能够直接使用获取自组件定义的方法
+
+49. activated 在keepalive的时候触发
+    mounted 在编译好的html挂载到页面完成后执行的事件钩子
+
+50. mapGetters -> computed
+    mapMutations -> methods
+    mapActions -> methods
+
+51. mixins的含义就是讲一堆代码 拼接到引用了的vue文件中
+
+52. 在写代码的时候 分离基础组件和业务组件的依据是： 是否和业务相关
+
+53. es6 扩展运算符 三个点（...）
+  ret.push({...data.zhida , ...{type: TYPE_SINGER}})
+  将两个对象合并成一个对象
+
+54. _.debounce 是一个通过 Lodash 限制操作频率的函数。
+  <input v-on:input="debounceInput">
+
+  methods: {
+    debounceInput: _.debounce(function (e) {
+      this.filterKey = e.target.value;
+    }, 500)
+  }
+
+55. splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目。
+    注释：该方法会改变原始数组。
+    arrayObject.splice(index,howmany,item1,.....,itemX)
+
+56. 当出现直接修改state中的值报错是 利用slice 获取副本在修改就不会报错
+
+57. 注意移动端在输入的input的时候，调用键盘后要及时使用input的blur()隐藏键盘
+
+58. 以及watch控制watch频率达到节流的目的
+
+59. concat 合并数组
+    Object.assign用于对象的合并
+
+60. pop push 从数组后面添加，删除
+    unshift shift 把数组的前面删除, 添加
+    都会改变原数组
+
+61 list findIndex((item) => {return item === str})函数返e的index
+
+62 <transition-group name="list" tag="ul"> 给每一个li添加动画
